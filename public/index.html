@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Applications Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-color: #f0f0f0;
+        }
+        #status {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            padding: 20px;
+            background-color: #fff;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Staff Applications Status:</h1>
+    <div id="status">Loading...</div>
+
+    <script>
+        async function fetchStatus() {
+            try {
+                const res = await fetch('/status');
+                const data = await res.json();
+                document.getElementById('status').innerText = data.status;
+            } catch (err) {
+                document.getElementById('status').innerText = "Error loading status";
+                console.error(err);
+            }
+        }
+
+        fetchStatus();
+        setInterval(fetchStatus, 5000); // refresh every 5 seconds
+    </script>
+</body>
+</html>
